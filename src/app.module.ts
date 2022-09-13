@@ -12,6 +12,7 @@ import { validateDBConfig } from './config/db.validation'
 import { SystemTestModule } from './system-test/system-test.module'
 import { ApolloDriver } from '@nestjs/apollo'
 import { RedisModule } from './common/redis/redis.module'
+import { NomicsModule } from './common/nomics/nomics.module'
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { RedisModule } from './common/redis/redis.module'
     SystemTestModule,
     HealthModule,
     RedisModule,
+    NomicsModule,
   ],
   controllers: [],
   providers: [],

@@ -6,6 +6,7 @@ import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import { expressCspHeader, NONE, NONCE, SELF } from 'express-csp-header'
 import * as dotenv from 'dotenv'
+import { NomicsService } from './common/nomics/nomics'
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
 async function bootstrap() {
@@ -65,8 +66,10 @@ async function bootstrap() {
   app.enableCors()
   await app.listen(port)
 
-  // const tService = app.get(SchoolManagementService)
-  // const result = await tService.test()
+  // const tService = app.get(NomicsService)
+  // const client = tService.getNomicsClient()
+  // const result = await client.currenciesTicker()
+  // // const result = await tService.test()
   // console.log("result", result)
 }
 bootstrap()

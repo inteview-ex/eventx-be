@@ -16,6 +16,8 @@ class EnvironmentVariables {
   @IsNumber()
   PORT: number
 
+  @IsString()
+  NOMICS_API_KEY:string
 }
 
 export function validateSystemConfig(config: Record<string, unknown>) {
