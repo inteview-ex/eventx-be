@@ -8,6 +8,7 @@ import { expressCspHeader, NONE, NONCE, SELF } from 'express-csp-header'
 import * as dotenv from 'dotenv'
 import { NomicsService } from './common/nomics/nomics'
 import { CryptoInfoService } from './entities/crypto-info/crypto-info.service'
+import { CryptoTickerService } from './domain/crypto-ticker/crypto-ticker.service'
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
 async function bootstrap() {
@@ -77,5 +78,10 @@ async function bootstrap() {
     // const writerRsult = await t2Service.testWrite()
     // const readRsult = await t2Service.testRead()
     // console.log("readRsult", readRsult)
+
+    const t2Service = app.get(CryptoTickerService)
+    // await t2Service.fetchAndUpdateTickers()
+    const result = await t2Service.getTickers(['BTC','ETH'])
+     console.log("result", result)
 }
 bootstrap()
