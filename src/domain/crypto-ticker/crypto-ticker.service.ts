@@ -6,7 +6,7 @@ import { RedisService } from 'src/common/redis/redis.service'
 import { CryptoInfo } from 'src/entities/crypto-info/crypto-info.entity'
 import { TimeInterval } from 'src/entities/crypto-info/enum/time-interval.enum'
 import { ArraySplitToChunks } from 'src/utils/arrayToChunk'
-import { CRYPTO_TICKERS } from '../enums'
+import { CRYPTO_TICKERS } from './enums'
 
 @Injectable()
 export class CryptoTickerService {
@@ -33,6 +33,7 @@ export class CryptoTickerService {
     this.logger.debug('Called per 1 minutes')
     // await this.fetchAndUpdateTickers()
   }
+
   async getTickers(watchlist: string[]) {
     // no watchlist, stop here
     if (watchlist.length < 1) {
@@ -49,7 +50,7 @@ export class CryptoTickerService {
     })
     return outputs
   }
-  
+
   async fetchAndUpdateTickers() {
     try {
       this.logger.debug('start fetchAndUpdateTickers')
