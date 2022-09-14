@@ -34,7 +34,7 @@ export class CryptoIntervalInfo {
 @Entity()
 export class CryptoInfo extends BaseNodeEntity {
   @ObjectIdColumn()
-  _id: ObjectID
+  _id?: ObjectID
 
   @PrimaryColumn()
   id: string
@@ -55,6 +55,12 @@ export class CryptoInfo extends BaseNodeEntity {
   price: string;
 
   @Column()
+  max_supply?: string;
+
+  @Column()
+  market_cap?: string;
+
+  @Column()
   [TimeInterval.Hour]?:CryptoIntervalInfo
 
   @Column()
@@ -69,7 +75,7 @@ export class CryptoInfo extends BaseNodeEntity {
   @Column()
   [TimeInterval.Year]?:CryptoIntervalInfo
 
-  constructor(data?: Partial<CryptoInfo>) {
+  constructor(data?: CryptoInfo) {
     super()
     Object.assign(this, data)
   }

@@ -195,6 +195,7 @@ export class CryptoInfoService {
 
   async testWrite() {
     const newCryptoInfo = new CryptoInfo({
+      id:'BTC',
       currency: 'BTC',
       symbol: 'BTC',
       name: 'Bitcoin',

@@ -79,9 +79,9 @@ async function bootstrap() {
     // const readRsult = await t2Service.testRead()
     // console.log("readRsult", readRsult)
 
-    const t2Service = app.get(CryptoTickerService)
+    // const t2Service = app.get(CryptoTickerService)
     // await t2Service.fetchAndUpdateTickers()
-    const result = await t2Service.getTickers(['BTC','ETH'])
-     console.log("result", result)
+    // const result = await t2Service.getTickers(['BTC','asdasdsad'])
+    //  console.log("result", result)
 }
 bootstrap()
