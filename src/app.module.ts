@@ -13,6 +13,10 @@ import { SystemTestModule } from './system-test/system-test.module'
 import { ApolloDriver } from '@nestjs/apollo'
 import { RedisModule } from './common/redis/redis.module'
 import { NomicsModule } from './common/nomics/nomics.module'
+import { CryptoTickerModule } from './domain/crypto-ticker/crypto-ticker.module'
+import { CryptoInfoModule } from './entities/crypto-info/crypto-info.module'
+import { ScheduleModule } from '@nestjs/schedule'
+
 
 @Module({
   imports: [
@@ -34,10 +38,13 @@ import { NomicsModule } from './common/nomics/nomics.module'
       cache: 'bounded',
       driver:ApolloDriver,
     }),
+    ScheduleModule.forRoot(),
     SystemTestModule,
     HealthModule,
     RedisModule,
     NomicsModule,
+    CryptoInfoModule,
+    CryptoTickerModule,
   ],
   controllers: [],
   providers: [],

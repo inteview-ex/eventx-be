@@ -7,6 +7,7 @@ import rateLimit from 'express-rate-limit'
 import { expressCspHeader, NONE, NONCE, SELF } from 'express-csp-header'
 import * as dotenv from 'dotenv'
 import { NomicsService } from './common/nomics/nomics'
+import { CryptoInfoService } from './entities/crypto-info/crypto-info.service'
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
 async function bootstrap() {
@@ -71,5 +72,10 @@ async function bootstrap() {
   // const result = await client.currenciesTicker()
   // // const result = await tService.test()
   // console.log("result", result)
+
+    // const t2Service = app.get(CryptoInfoService)
+    // const writerRsult = await t2Service.testWrite()
+    // const readRsult = await t2Service.testRead()
+    // console.log("readRsult", readRsult)
 }
 bootstrap()
