@@ -40,7 +40,6 @@ lerna-debug.log*
 .env.development
 .env.production
 .eb-set-env
-.env.*
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
