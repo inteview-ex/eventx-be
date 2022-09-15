@@ -42,7 +42,7 @@ async function bootstrap() {
   process.env.NODE_ENV === 'production' && app.use(cspMiddleware)
 
   // apply rate limit in production env
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV === 'production') {
     //trust proxy for rate limit
     app.set('trust proxy', 1)
 

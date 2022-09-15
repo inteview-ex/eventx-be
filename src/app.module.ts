@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { CacheInterceptor, CacheModule, Module } from '@nestjs/common'
 import { HealthModule } from './entities/base/health/health.module'
 import { ConfigModule } from '@nestjs/config'
 import configuration from './config/configuration'
@@ -11,6 +11,7 @@ import { CryptoTickerModule } from './domain/crypto-ticker/crypto-ticker.module'
 import { CryptoInfoModule } from './entities/crypto-info/crypto-info.module'
 import { ScheduleModule } from '@nestjs/schedule'
 import { CronTasksModule } from './domain/cron-tasks/cron-tasks.module'
+import { APP_INTERCEPTOR } from '@nestjs/core'
 
 @Module({
   imports: [
@@ -19,6 +20,10 @@ import { CronTasksModule } from './domain/cron-tasks/cron-tasks.module'
       envFilePath: ['.env', `.env.${process.env.NODE_ENV}`],
       load: [configuration],
       validate: validateMultiple([validateSystemConfig, validateDBConfig]),
+    }),
+    CacheModule.register({
+      isGlobal:true,
+      ttl: 60,
     }),
     ScheduleModule.forRoot(),
     HealthModule,

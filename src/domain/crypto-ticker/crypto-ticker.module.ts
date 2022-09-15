@@ -6,7 +6,7 @@ import { CryptoTickerGateway } from './crypto-ticker.gateway'
 import { CryptoTickerService } from './crypto-ticker.service'
 
 @Module({
-  imports: [NomicsModule, RedisModule],
+  imports: [NomicsModule, RedisModule,],
   providers: [CryptoTickerService, CryptoTickerGateway],
   controllers:[CryptoTickerController],
   exports: [CryptoTickerService, CryptoTickerGateway],
