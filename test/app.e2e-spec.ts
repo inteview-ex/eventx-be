@@ -31,13 +31,14 @@ describe('AppController (e2e)', () => {
   })
 
   describe('Public endpoint test', () => {
-    it('should return an admin', async () => {
+    it('should return crypto infos', async () => {
+      const watchlist = ["BTC","ETH","LTC","XMR","XRP","DOGE","DASH","MAID","LSK","SJCX"]
       const result = await axiosInstance.get<CryptoInfo[]>(
-        `/crypto-ticker?tokens=BTC,ETH,LTC,XMR,XRP,DOGE,DASH,MAID,LSK,SJCX`
+        `/crypto-ticker?tokens=${watchlist.join(",")}`
       )
       expect(result.status).toBe(200)
       expect(result.data).toBeDefined()
-      expect(result.data.length).toBeGreaterThan(0)
+      expect(result.data).toHaveLength(watchlist.length)
       const ticker = result.data[0]
       expect(ticker.id).toBeDefined()
       expect(ticker.currency).toBeDefined()

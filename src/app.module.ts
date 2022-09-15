@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { typeOrmMongoDBConfig } from './config/typeorm.config'
 import { HealthModule } from './entities/base/health/health.module'
 import { ConfigModule } from '@nestjs/config'
 import configuration from './config/configuration'
@@ -22,11 +20,6 @@ import { CronTasksModule } from './domain/cron-tasks/cron-tasks.module'
       envFilePath: ['.env', `.env.${process.env.NODE_ENV}`],
       load: [configuration],
       validate: validateMultiple([validateSystemConfig, validateDBConfig]),
-    }),
-    TypeOrmModule.forRoot({
-      ...typeOrmMongoDBConfig,
-      keepConnectionAlive: true,
-      // logging:true,
     }),
     ScheduleModule.forRoot(),
     HealthModule,

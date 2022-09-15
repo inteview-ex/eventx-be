@@ -1,78 +1,47 @@
-import {
-  Column,
-  Entity,
-  ObjectID,
-  ObjectIdColumn,
-  PrimaryColumn,
-} from 'typeorm'
-import { TimeInterval } from './enum/time-interval.enum';
+import { TimeInterval } from './enum/time-interval.enum'
 
 export class CryptoIntervalInfo {
-  @Column()
-  volume: string;
+  volume: string
 
-  @Column()
-  price_change: string;
+  price_change: string
 
-  @Column()
-  price_change_pct: string;
+  price_change_pct: string
 
-  @Column()
-  volume_change: string;
+  volume_change: string
 
-  @Column()
-  volume_change_pct: string;
+  volume_change_pct: string
 
-  @Column()
-  market_cap_change?: string;
+  market_cap_change?: string
 
-  @Column()
-  market_cap_change_pct?: string;
-
+  market_cap_change_pct?: string
 }
-@Entity()
-export class CryptoInfo {
-  @ObjectIdColumn()
-  _id?: ObjectID
 
-  @PrimaryColumn()
+export class CryptoInfo {
   id: string
 
-  @Column()
-  currency: string;
+  currency: string
 
-  @Column()
-  symbol: string;
+  symbol: string
 
-  @Column()
-  name?: string;
+  name?: string
 
-  @Column()
-  logo_url?: string;
+  logo_url?: string
 
-  @Column()
-  price: string;
+  price: string
 
-  @Column()
-  max_supply?: string;
+  max_supply?: string
 
-  @Column()
   market_cap?: string;
 
-  @Column()
-  [TimeInterval.Hour]?:CryptoIntervalInfo
+  [TimeInterval.Hour]?: CryptoIntervalInfo;
 
-  @Column()
-  [TimeInterval.Day]?:CryptoIntervalInfo
+  [TimeInterval.Day]?: CryptoIntervalInfo;
 
-  @Column()
-  [TimeInterval.Week]?:CryptoIntervalInfo
+  [TimeInterval.Week]?: CryptoIntervalInfo;
 
-  @Column()
-  [TimeInterval.Month]?:CryptoIntervalInfo
+  [TimeInterval.Month]?: CryptoIntervalInfo;
 
-  @Column()
-  [TimeInterval.Year]?:CryptoIntervalInfo
+  [TimeInterval.Year]?: CryptoIntervalInfo
 
   constructor(data?: CryptoInfo) {
     Object.assign(this, data)

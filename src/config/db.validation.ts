@@ -2,25 +2,6 @@ import { plainToInstance } from 'class-transformer'
 import { IsNumber, IsOptional, IsString, validateSync } from 'class-validator'
 
 class EnvironmentVariables {
-  // MongoDB
-  @IsString()
-  DB_NAME: string
-
-  @IsString()
-  DB_HOST: string
-
-  @IsOptional()
-  @IsNumber()
-  DB_PORT: number
-
-  @IsString()
-  DB_USERNAME: string
-
-  @IsString()
-  DB_PASSWORD: string
-
-  @IsString()
-  DB_PROVIDER: string
 
   @IsString()
   REDIS_HOST: string
