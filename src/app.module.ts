@@ -7,7 +7,6 @@ import configuration from './config/configuration'
 import { validateMultiple } from './config/validate-multiple'
 import { validateSystemConfig } from './config/env.validation'
 import { validateDBConfig } from './config/db.validation'
-import { SystemTestModule } from './system-test/system-test.module'
 import { RedisModule } from './common/redis/redis.module'
 import { NomicsModule } from './common/nomics/nomics.module'
 import { CryptoTickerModule } from './domain/crypto-ticker/crypto-ticker.module'
@@ -30,7 +29,6 @@ import { CronTasksModule } from './domain/cron-tasks/cron-tasks.module'
       // logging:true,
     }),
     ScheduleModule.forRoot(),
-    SystemTestModule,
     HealthModule,
     RedisModule,
     NomicsModule,

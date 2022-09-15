@@ -5,7 +5,6 @@ import {
   ObjectIdColumn,
   PrimaryColumn,
 } from 'typeorm'
-import { BaseNodeEntity } from '../base/node-interface/base-node-entity'
 import { TimeInterval } from './enum/time-interval.enum';
 
 export class CryptoIntervalInfo {
@@ -32,7 +31,7 @@ export class CryptoIntervalInfo {
 
 }
 @Entity()
-export class CryptoInfo extends BaseNodeEntity {
+export class CryptoInfo {
   @ObjectIdColumn()
   _id?: ObjectID
 
@@ -76,7 +75,6 @@ export class CryptoInfo extends BaseNodeEntity {
   [TimeInterval.Year]?:CryptoIntervalInfo
 
   constructor(data?: CryptoInfo) {
-    super()
     Object.assign(this, data)
   }
 }
