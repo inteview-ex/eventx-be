@@ -41,16 +41,19 @@ async function bootstrap() {
   })
   process.env.NODE_ENV === 'production' && app.use(cspMiddleware)
 
-  //trust proxy for rate limit
-  app.set('trust proxy', 1)
+  // apply rate limit in production env
+  if (process.env.NODE_ENV !== 'production') {
+    //trust proxy for rate limit
+    app.set('trust proxy', 1)
 
-  // rate limit
-  app.use(
-    rateLimit({
-      windowMs: 15 * 60 * 1000, // 15 minutes
-      max: 100, // limit each IP to 100 requests per windowMs
-    })
-  )
+    // rate limit
+    app.use(
+      rateLimit({
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        max: 100, // limit each IP to 100 requests per windowMs
+      })
+    )
+  }
 
   app.useGlobalPipes(
     new ValidationPipe({
