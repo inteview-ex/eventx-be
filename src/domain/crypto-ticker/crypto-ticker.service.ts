@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { Cron } from '@nestjs/schedule'
 import { IRawCurrencyTicker } from 'nomics'
 import { NomicsService } from 'src/common/nomics/nomics'
 import { RedisService } from 'src/common/redis/redis.service'
@@ -12,7 +11,8 @@ import { CRYPTO_TICKERS } from './enums'
 export class CryptoTickerService {
   constructor(
     private readonly nomicsService: NomicsService,
-    private readonly redisService: RedisService
+    private readonly redisService: RedisService,
+    
   ) {}
   private readonly logger = new Logger(CryptoTickerService.name)
   private readonly tokenList: string[] = [
@@ -27,13 +27,18 @@ export class CryptoTickerService {
     'LSK',
     'SJCX',
   ]
-
-  @Cron('*/1 * * * *')
-  async handleCron() {
-    this.logger.debug('Called per 1 minutes')
-    // await this.fetchAndUpdateTickers()
+  async getAllTickers(){
+    const redisClient = await this.redisService.getRedisClient()
+    const outputs: CryptoInfo[] = []
+    const keys = await redisClient.keys(`${CRYPTO_TICKERS}-*`)
+    const results = await redisClient.mGet(keys)
+    results.forEach((e) =>{
+      if(e !== null){
+          outputs.push(JSON.parse(e))
+      }
+  })
+  return outputs
   }
-
   async getTickers(watchlist: string[]) {
     // no watchlist, stop here
     if (watchlist.length < 1) {
@@ -52,6 +57,7 @@ export class CryptoTickerService {
   }
 
   async fetchAndUpdateTickers() {
+    let cryptoInfos:CryptoInfo[] = []
     try {
       this.logger.debug('start fetchAndUpdateTickers')
       // get watchlist from db
@@ -59,12 +65,11 @@ export class CryptoTickerService {
 
       // get api from nomics
       const tickers = await this.getLatestCryptoDataFromAPI(watchlist)
-      const cryptoInfos = this.apiDatasCleaning(tickers)
+      cryptoInfos = this.apiDatasCleaning(tickers) ?? []
       this.logger.debug(`get ${tickers.length} api data from nomics`)
 
       // save in db
 
-      console.log("cryptoInfos", cryptoInfos)
       // save in redis cache
       await this.updateCryptoInfoToRedisCache(cryptoInfos)
       this.logger.debug('updated redis cache')
@@ -72,6 +77,7 @@ export class CryptoTickerService {
     } catch (error) {
       this.logger.error(error)
     }
+    return cryptoInfos
   }
 
   async getLatestCryptoDataFromAPI(

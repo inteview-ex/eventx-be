@@ -3,12 +3,8 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import helmet from 'helmet'
-import rateLimit from 'express-rate-limit'
 import { expressCspHeader, NONE, NONCE, SELF } from 'express-csp-header'
 import * as dotenv from 'dotenv'
-import { NomicsService } from './common/nomics/nomics'
-import { CryptoInfoService } from './entities/crypto-info/crypto-info.service'
-import { CryptoTickerService } from './domain/crypto-ticker/crypto-ticker.service'
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
 async function bootstrap() {
@@ -44,15 +40,15 @@ async function bootstrap() {
   process.env.NODE_ENV === 'production' && app.use(cspMiddleware)
 
   //trust proxy for rate limit
-  app.set('trust proxy', 1)
+  // app.set('trust proxy', 1)
 
   //rate limit
-  app.use(
-    rateLimit({
-      windowMs: 15 * 60 * 1000, // 15 minutes
-      max: 0, // limit each IP to 100 requests per windowMs
-    })
-  )
+  // app.use(
+  //   rateLimit({
+  //     windowMs: 15 * 60 * 1000, // 15 minutes
+  //     max: 0, // limit each IP to 100 requests per windowMs
+  //   })
+  // )
 
   app.useGlobalPipes(
     new ValidationPipe({
