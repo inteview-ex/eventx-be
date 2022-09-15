@@ -65,16 +65,17 @@ async function bootstrap() {
   app.enableShutdownHooks()
   app.enableCors()
 
-  // Add swagger on API
-  const config = new DocumentBuilder()
-    .setTitle('Crypto Ticker')
-    .setDescription('The crypto ticker API description')
-    .setVersion('1.0')
-    .addTag('cryptoTicker')
-    .build()
-  const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api', app, document)
- 
+  // Add swagger on API on non-production
+  if (process.env.NODE_ENV !== 'production') {
+    const config = new DocumentBuilder()
+      .setTitle('Crypto Ticker')
+      .setDescription('The crypto ticker API description')
+      .setVersion('1.0')
+      .build()
+    const document = SwaggerModule.createDocument(app, config)
+    SwaggerModule.setup('api', app, document)
+  }
+
   await app.listen(port)
 }
 bootstrap()
