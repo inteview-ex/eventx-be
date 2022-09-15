@@ -12,7 +12,6 @@ import { CryptoInfoModule } from './entities/crypto-info/crypto-info.module'
 import { ScheduleModule } from '@nestjs/schedule'
 import { CronTasksModule } from './domain/cron-tasks/cron-tasks.module'
 
-
 @Module({
   imports: [
     ConfigModule.forRoot({

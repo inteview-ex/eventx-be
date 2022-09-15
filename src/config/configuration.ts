@@ -22,6 +22,17 @@ export class RedisConf {
     this.url = `redis://${this.host}:${this.port}`
   }
 }
+
+const isMainNodeChecker = () =>{
+  const instanceId = process.env.NODE_APP_INSTANCE
+  if(!instanceId || instanceId === null){
+    return true
+  }
+  if(instanceId === "0"){
+    return true
+  }
+  return false
+}
 export default () => ({
   db: new DBConf({
     host: process.env.DB_HOST,
@@ -37,4 +48,6 @@ export default () => ({
     port: parseInt(process.env.REDIS_PORT, 10) || 6379,
     password: process.env.REDIS_PASSWORD,
   }),
+  instanceId:process.env.NODE_APP_INSTANCE,
+  isMainNode:isMainNodeChecker()
 })

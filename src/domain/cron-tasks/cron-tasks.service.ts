@@ -13,14 +13,8 @@ export class CronTasksService implements OnModuleInit {
   ){}
   private isMainNode:boolean = false
   onModuleInit() {
-    const instanceId = this.configService.get('NODE_APP_INSTANCE')
-    // console.log("instanceId", instanceId)
-    if(!instanceId || instanceId === null){
-      this.isMainNode = true
-    }else if(instanceId === "0"){
-      this.isMainNode = true 
-    }
-    // console.log("isMainNode", this.isMainNode)
+    const _isMainNode = this.configService.get<boolean>('isMainNode')
+    this.isMainNode = _isMainNode
   }
 
   @Cron('*/1 * * * *') //every one minute
