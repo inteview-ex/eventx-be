@@ -76,6 +76,7 @@ export class CryptoTickerService {
       this.logger.debug('end fetchAndUpdateTickers')
     } catch (error) {
       this.logger.error(error)
+      this.logger.error(JSON.stringify(error))
     }
     return cryptoInfos
   }

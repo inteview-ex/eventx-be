@@ -16,7 +16,7 @@
         "start:dev-atlas": "cross-env NODE_ENV=atlas nest start --watch",
         "start:test": "cross-env NODE_ENV=test nest start --watch",
         "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
-        "start:prod": "cross-env NODE_ENV=production node dist/src/main.js",
+        "start:prod": "cross-env NODE_ENV=production node dist/main.js",
         "start:prod-dev": "cross-env NODE_ENV=production nest start --watch",
         "deploy": "yarn run build && yarn run start:prod",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
